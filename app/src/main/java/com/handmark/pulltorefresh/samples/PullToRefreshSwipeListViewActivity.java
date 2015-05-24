@@ -46,7 +46,6 @@ public class PullToRefreshSwipeListViewActivity extends Activity {
             public void onPullDownToRefresh(PullToRefreshBase<SwipeListView> refreshView) {
                 Toast.makeText(mActivity,"onPullDownToRefresh",Toast.LENGTH_SHORT).show();
                 final Handler hand= new Handler();
-
                 hand.postDelayed(new Runnable() {
                     @Override
                     public void run() {
