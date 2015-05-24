@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,23 +45,29 @@ public class PullToRefreshSwipeListViewActivity extends Activity {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<SwipeListView> refreshView) {
                 Toast.makeText(mActivity,"onPullDownToRefresh",Toast.LENGTH_SHORT).show();
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                mPullToRefreshSwipeListView.onRefreshComplete();
+                final Handler hand= new Handler();
+                hand.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPullToRefreshSwipeListView.onRefreshComplete();
+                        hand.removeCallbacks(this);
+                    }
+                },2000);
+
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<SwipeListView> refreshView) {
                 Toast.makeText(mActivity,"onPullUpToRefresh",Toast.LENGTH_SHORT).show();
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                mPullToRefreshSwipeListView.onRefreshComplete();
+                final Handler hand= new Handler();
+                hand.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPullToRefreshSwipeListView.onRefreshComplete();
+                        hand.removeCallbacks(this);
+                    }
+                }, 2000);
+
             }
         });
 
